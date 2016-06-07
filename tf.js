@@ -3,8 +3,7 @@
 	// get all the envato comments only when you have a token
 	chrome.storage.sync.get({
 		envato_token: '',
-		items_ids: '',
-		last_comment_id: null
+		items_ids: ''
 	}, function(items) {
 		if ( typeof items.envato_token !== "undefined" && items.envato_token !== "" && typeof items.items_ids !== "undefined" ) {
 

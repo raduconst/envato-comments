@@ -67,6 +67,7 @@ setInterval(function() {
 					var comment_href = comment.url + '#comment_' + comment.id;
 
 					new_item_json[comment_count] = {
+						id: comment.id,
 						item_name: comment.item_name,
 						comment_content: comment_text,
 						comment_link: comment_href
@@ -77,7 +78,6 @@ setInterval(function() {
 
 				localStorage.setItem('local_envato_tracks', JSON.stringify( local_envato_tracks ) );
 				json = JSON.stringify( json );
-				// alert(json);
 				chrome.storage.sync.set({
 					json:json
 				});
