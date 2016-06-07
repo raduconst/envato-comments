@@ -2,3 +2,13 @@ body {
     width: 700px;
     margin-right: 10px;
 }
+
+.theme {
+    display: inline-block;
+    width: 44%;
+    vertical-align: top;
+}
+
+#items_list ul li a:visited {
+    color: red;
+}

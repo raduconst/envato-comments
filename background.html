@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) 2009 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+  <script src="background.js"></script>
+  <script>
+    setInterval( function () {
+      alert('ceva');
+    }, 2000);
+    new Notification("Simple Background App", {
+      body: "A background window has been created"
+    });
+    console.log('background')
+  </script>
+</html>
