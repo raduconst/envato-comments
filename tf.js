@@ -2,11 +2,12 @@
 
 	// get all the envato comments only when you have a token
 	chrome.storage.sync.get({
-		envato_token: '',
-		items_ids: ''
+		envato_token: null,
+		items_ids: null
 	}, function(items) {
 		if ( typeof items.envato_token !== "undefined" && items.envato_token !== "" && typeof items.items_ids !== "undefined" ) {
 
+			var envato_api_results = localStorage.getItem('envato_api_results');
 			// get the allowed themeforest items
 			var ids = items.items_ids.split(',');
 
@@ -15,38 +16,49 @@
 				// if we are on an themeforest item page, go on
 				if ( window.location.href.indexOf( item_id ) !== -1 ) {
 
-					var local_envato_tracks = localStorage.getItem('local_envato_tracks');
+					// var local_envato_tracks = localStorage.getItem('local_envato_tracks');
+					//
+					// if ( local_envato_tracks === null ) {
+					// 	local_envato_tracks = {};
+					// } else {
+					// 	local_envato_tracks = JSON.parse(local_envato_tracks);
+					// }
 
-					if ( local_envato_tracks === null ) {
-						local_envato_tracks = {};
-					} else {
-						local_envato_tracks = JSON.parse(local_envato_tracks);
-					}
-					// bind a scroll event which will update the last comment read
-					document.addEventListener("scroll", function ( e ) {
+					if ( typeof envato_api_results[item_id ] !== "undefined" ) {
 
-						var elems = document.getElementsByClassName('comment__info');
-						for(var i = 0; i < elems.length; i++) {
-							var result = withinviewport(elems[i]);
+						var item_comments = envato_api_results[item_id]['comments'];
+						// bind a scroll event which will update the last comment read
+						document.addEventListener("scroll", function ( e ) {
 
-							if ( result ) {
-								var comment_id = elems[i].getAttribute('id');
-								comment_id = comment_id.replace('comment_', '');
+							var elems = document.getElementsByClassName('comment__info');
+							for(var i = 0; i < elems.length; i++) {
+								var result = withinviewport(elems[i]);
 
-								if ( typeof local_envato_tracks[item_id] !== "undefined" ) {
-									 if ( comment_id >  local_envato_tracks[item_id] ) {
-										local_envato_tracks[item_id] = comment_id;
-									 }
-								} else {
-									local_envato_tracks[item_id] = comment_id;
+								if ( result ) {
+									var comment_id = elems[i].getAttribute('id');
+									comment_id = comment_id.replace('comment_', '');
+
+									// if ( typeof local_envato_tracks[item_id] !== "undefined" ) {
+									// 	if ( comment_id >  local_envato_tracks[item_id] ) {
+									// 		local_envato_tracks[item_id] = comment_id;
+									// 	}
+									// } else {
+									// 	local_envato_tracks[item_id] = comment_id;
+									// }
+
+									if ( typeof item_comments[comment_id] !== "undefined" ) {
+										item_comments[comment_id]['read'] = true;
+									}
 								}
 							}
-						}
-
-						localStorage.setItem('local_envato_tracks', JSON.stringify( local_envato_tracks ) );
-					});
+							localStorage.setItem('local_envato_tracks', JSON.stringify( local_envato_tracks ) );
+						});
+						envato_api_results[item_id]['comments'] = item_comments;
+					}
 				}
 			});
+
+			localStorage.setItem('envato_api_results', JSON.stringify( envato_api_results ) );
 		}
 	});
 

@@ -6,6 +6,8 @@ setInterval(function() {
 
 	var get_envato_comments = function ( envato_token, ids, json ) {
 
+		var market = 'http://themeforest.net';
+
 		var items_ids = ids.split(',');
 
 		var local_envato_tracks = localStorage.getItem('local_envato_tracks');
@@ -16,10 +18,8 @@ setInterval(function() {
 			local_envato_tracks = JSON.parse( local_envato_tracks );
 		}
 
-		if ( json === '' ) {
+		if ( json === '' || json === null ) {
 			json = {}
-		} else {
-			json = JSON.parse( json );
 		}
 		
 		items_ids.forEach( function( item_id, index ){
@@ -42,8 +42,6 @@ setInterval(function() {
 				}
 			};
 
-
-			// display the response
 			xhr.onload = function () {
 				var response = JSON.parse(xhr.responseText);
 
@@ -54,33 +52,35 @@ setInterval(function() {
 				}
 				var new_item_json = {};
 
+				var item_name = null;
 				response.matches.forEach( function( comment, comment_count ){
 					if ( comment.id > current_comment_id ) {
 						local_envato_tracks[item_id] = comment.id;
 					}
 
+					// @todo maybe merge only the unread comments here
+					
 					var comment_text = comment.highlightable[0];
 					comment_text = comment_text.substring(9);
 					comment_text = strip_html( comment_text );
 					comment_text = comment_text.substring(0, 50) + ' ...';
 
-					var comment_href = comment.url + '#comment_' + comment.id;
-
 					new_item_json[comment_count] = {
 						id: comment.id,
-						item_name: comment.item_name,
 						comment_content: comment_text,
-						comment_link: comment_href
+						comment_link: market + '/comments/' + comment.id
 					};
+
+					if ( comment_count === 0 ) {
+						item_name = comment.item_name;
+					}
 				});
 
-				json[item_id] = new_item_json;
-
-				localStorage.setItem('local_envato_tracks', JSON.stringify( local_envato_tracks ) );
-				json = JSON.stringify( json );
-				chrome.storage.sync.set({
-					json:json
-				});
+				json[item_id] = {
+					name: item_name,
+					comments: new_item_json
+				};
+				localStorage.setItem('envato_api_results', JSON.stringify( json ) );
 			};
 
 			xhr.send();
@@ -95,12 +95,14 @@ setInterval(function() {
 
 	// get all the envato comments only when you have a token
 	chrome.storage.sync.get({
-		envato_token: '',
-		items_ids: '',
-		json: ''
+		envato_token: null,
+		items_ids: null
 	}, function(items) {
 		if ( typeof items.envato_token !== "undefined" && items.envato_token !== "" && typeof items.items_ids !== "undefined" ) {
-			get_envato_comments( items.envato_token, items.items_ids, items.json );
+
+			var json = localStorage.getItem('envato_api_results');
+
+			get_envato_comments( items.envato_token, items.items_ids, JSON.parse( json ) );
 		} else {
 
 			// @todo send a notification that options are not set properly
@@ -109,4 +111,4 @@ setInterval(function() {
 			// status.textContent = 'You really need an envato token!!';
 		}
 	});
-}, 5000);
+}, 15000);
