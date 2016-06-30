@@ -2,6 +2,7 @@
 function save_options() {
 	var envato_token = document.getElementById('envato_token').value;
 	var items_ids = document.getElementById('items_ids').value;
+	var recheck_time = document.getElementById('recheck_time').value;
 
 	if ( envato_token.length !== 32 ) {
 		alert('needs to be 32 chars length, check your token bitch');
@@ -10,7 +11,8 @@ function save_options() {
 	
 	chrome.storage.sync.set({
 		envato_token: envato_token,
-		items_ids: items_ids
+		items_ids: items_ids,
+		recheck_time: recheck_time
 	}, function() {
 		// Update status to let user know options were saved.
 		var status = document.getElementById('status');
@@ -26,10 +28,12 @@ function save_options() {
 function restore_options() {
 	chrome.storage.sync.get({
 		envato_token: '',
-		items_ids: ''
+		items_ids: '',
+		recheck_time: 60
 	}, function(items) {
 		document.getElementById('envato_token').value = items.envato_token;
 		document.getElementById('items_ids').value = items.items_ids;
+		document.getElementById('recheck_time').value = items.recheck_time;
 	});
 }
 document.addEventListener('DOMContentLoaded', restore_options);
