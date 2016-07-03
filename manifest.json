@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "matches": ["http://themeforest.net/item/*/*/comments","http://themeforest.net/item/*/*/comments?page=*"],
-      "js": [ "tf.js"]
+      "js": [ "envato.js"]
     }
   ],
   "permissions": [
