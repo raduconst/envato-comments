@@ -47,14 +47,18 @@ var EnvatoCommentsChecker = (function() {
 
 		chrome.storage.local.get( 'envato_api_results', function (result) {
 			var market = 'http://themeforest.net',
-				items_ids = ids.split(','),
-				envato_api_results = result.envato_api_results;
+				items_ids = ids.split(',');
+			if ( typeof result.envato_api_results === "undefined" ) {
+				envato_api_results = {};
+			} else {
+				var envato_api_results = result.envato_api_results;
+				envato_api_results = JSON.parse( envato_api_results );
 
-			envato_api_results = JSON.parse( envato_api_results );
-
-			if ( envato_api_results === '' || envato_api_results === null ) {
-				envato_api_results = {}
+				if ( envato_api_results === '' || envato_api_results === null ) {
+					envato_api_results = {};
+				}
 			}
+
 			/**
 			 * For each item, ask for data from envato API
 			 */
