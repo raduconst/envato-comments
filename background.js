@@ -91,6 +91,7 @@ var EnvatoCommentsChecker = (function() {
 							typeof envato_api_results[item_id] !== "undefined"
 							&& typeof envato_api_results[item_id]['comments'] !== "undefined"
 							&& envato_api_results[item_id]['name'] !== null
+							&& typeof envato_api_results[item_id]['comments'][comment.id] !== "undefined"
 							&& typeof envato_api_results[item_id]['comments'][comment.id].read !== "undefined"
 						) {
 							new_item_json[comment.id] = envato_api_results[item_id]['comments'][comment.id]
