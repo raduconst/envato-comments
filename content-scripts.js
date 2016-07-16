@@ -1,11 +1,11 @@
 /**
  *  This script gets all the envato comments if there is a token and only for the items we have set
  */
+
 chrome.storage.sync.get({
 	envato_token: null,
 	items_ids: null
 }, function(items) {
-
 	if ( typeof items.envato_token !== "undefined" && items.envato_token !== "" && typeof items.items_ids !== "undefined" ) {
 		/**
 		 * This is a helper function which saves data in `chrome.storage.local` under the `envato_api_results key`
@@ -52,7 +52,7 @@ chrome.storage.sync.get({
 					document.addEventListener("scroll", function ( event ) {
 						var comments = document.getElementsByClassName('comment__info');
 						for(var i = 0; i < comments.length; i++) {
-							var comment_in_viewport = withinviewport(comments[i]);
+							var comment_in_viewport = withinviewport( comments[i].nextElementSibling );
 
 							if ( comment_in_viewport ) {
 								var comment_id = comments[i].getAttribute('id');
@@ -71,7 +71,6 @@ chrome.storage.sync.get({
 						// debugger;
 						envato_api_results[item_id]['comments'] = item_comments;
 						save_data(envato_api_results);
-						console.log(envato_api_results);
 					}, false);
 				}
 			});

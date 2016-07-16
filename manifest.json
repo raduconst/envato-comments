@@ -12,12 +12,10 @@
   "background": {
     "scripts": ["background.js"]
   },
-  "content_scripts": [
-    {
-      "matches": ["http://themeforest.net/item/*/*/comments","http://themeforest.net/item/*/*/comments?page=*"],
-      "js": [ "envato.js"]
-    }
-  ],
+  "content_scripts": [{
+      "matches": ["https://themeforest.net/item/*/*/comments","https://themeforest.net/item/*/*/comments?page=*"],
+      "js": [ "content-scripts.js" ]
+  }],
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/",
