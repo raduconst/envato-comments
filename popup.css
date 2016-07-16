@@ -12,3 +12,7 @@ body {
 #items_list ul li a:visited {
     color: red;
 }
+
+.template {
+    display: none;
+}

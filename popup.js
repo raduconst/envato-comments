@@ -49,26 +49,25 @@ var PopupBuilder = (function() {
 							return;
 						}
 
-						var item_wrapper = document.createElement('ul'),
-							title_wrapper = document.createElement('h3'),
-							item_element = document.createElement('div'),
+						var item_element = document.getElementById('item_template').cloneNode( true ),
+							item_wrapper = item_element.querySelector('.comments'),
+							title = item_element.querySelector('.title'),
 							items_list = document.getElementById('items_list');
 
-						title_wrapper.appendChild(document.createTextNode(api_results[item_id].name));
+						title.innerHTML = api_results[item_id].name;
 
-						item_wrapper.setAttribute('id', 'item_id_' + item_id);
+						item_element.setAttribute('id', 'item_id_' + item_id);
 
 						build_item_html(api_results[item_id], item_wrapper);
 
-						item_element.className += 'theme';
-						item_element.appendChild(title_wrapper);
+						item_element.className = 'theme';
+						item_element.appendChild(title);
 						item_element.appendChild(item_wrapper);
 
 						items_list.appendChild(item_element);
 					});
 				});
 			});
-
 	}
 
 	// this function adds html for a single envato item
@@ -81,8 +80,9 @@ var PopupBuilder = (function() {
 		Object.keys(item.comments).forEach(function (key) {
 			var comment = item.comments[key];
 
-			var comment_wrapper = document.createElement('li');
-			var comment_link = document.createElement('a');
+			var comment_wrapper = document.getElementById('comment_template').cloneNode( true ),
+				comment_link = comment_wrapper.querySelector('a.comment_link');
+
 			comment_wrapper.setAttribute('id', 'comment_id_' + key);
 
 			if (typeof comment.read !== "undefined") {
@@ -90,10 +90,12 @@ var PopupBuilder = (function() {
 				comment_wrapper.setAttribute('style', 'background:#333;');
 			}
 
+
+			comment_wrapper.className = 'comment';
 			comment_link.setAttribute('href', comment.comment_link);
 			comment_link.setAttribute('target', '_blank');
-			comment_link.appendChild(document.createTextNode(comment.comment_content));
-			comment_wrapper.appendChild(comment_link);
+			comment_link.innerHTML = comment.comment_content;
+
 			item_wrapper.appendChild(comment_wrapper);
 		});
 	};
