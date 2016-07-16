@@ -21,9 +21,18 @@ var EnvatoCommentsChecker = (function() {
 
 			run_check();
 			setInterval( run_check, parseInt( $recheck_time + '000' ) );
+            listen_for_check_now();
 		});
 
 	}
+
+	var listen_for_check_now = function() {
+        chrome.runtime.onMessage.addListener (function ( msg, call ) {
+            if (msg.type = "check_now") {
+                run_check();
+            }
+        });
+	};
 
 	var run_check = function() {
 		if ( $envato_token !== null && $envato_token !== "" && $items_ids !== null ) {
@@ -36,6 +45,7 @@ var EnvatoCommentsChecker = (function() {
 	var save_data = function ( val ) {
 		var result = {};
 		result['envato_api_results'] = JSON.stringify( val );
+        console.log(JSON.stringify(val));
 		chrome.storage.local.set(result, function() {
 			if (chrome.extension.lastError) {
 				console.log('An error occurred: ' + chrome.extension.lastError.message);
