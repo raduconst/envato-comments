@@ -139,6 +139,8 @@ var EnvatoCommentsChecker = (function () {
 
 			if (notify === true) {
 				updateIcon('new');
+			} else {
+				updateIcon();
 			}
 		};
 		xhr.send();

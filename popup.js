@@ -44,6 +44,8 @@ var PopupBuilder = (function () {
 				 * - title
 				 * - list of comments
 				 */
+
+				var is_built = false;
 				items_ids.forEach(function (item_id, index) {
 
 					/**
@@ -63,14 +65,20 @@ var PopupBuilder = (function () {
 
 					item_element.setAttribute('id', 'item_id_' + item_id);
 
-					build_item_html(api_results[item_id], item_wrapper);
+					is_built = build_item_html(api_results[item_id], item_wrapper);
 
-					item_element.className = 'theme';
-					item_element.appendChild(title);
-					item_element.appendChild(item_wrapper);
+					if ( is_built ) {
+						item_element.className = 'theme';
+						item_element.appendChild(title);
+						item_element.appendChild(item_wrapper);
 
-					items_list.appendChild(item_element);
+						items_list.appendChild(item_element);
+					}
 				});
+
+				if ( ! is_built ) {
+					updateIcon();
+				}
 			});
 		});
 	}
@@ -96,9 +104,12 @@ var PopupBuilder = (function () {
 	// this function adds html for a single envato item
 	var build_item_html = function (item, item_wrapper) {
 
+		var is_built = false;
+
 		if (typeof item.comments === "undefined") {
-			return;
+			return is_built;
 		}
+
 
 		Object.keys(item.comments).forEach(function (key) {
 			var comment = item.comments[key];
@@ -109,7 +120,7 @@ var PopupBuilder = (function () {
 			comment_wrapper.setAttribute('id', 'comment_id_' + key);
 
 			if (typeof comment.read !== "undefined") {
-				return;
+				return is_built;
 				comment_wrapper.setAttribute('style', 'background:#333;');
 			}
 
@@ -120,6 +131,22 @@ var PopupBuilder = (function () {
 			comment_link.innerHTML = comment.comment_content;
 
 			item_wrapper.appendChild(comment_wrapper);
+			is_built = true;
+		});
+
+		return is_built;
+	};
+
+	// update the browser icon as the extension state is
+	var updateIcon = function ($icon_name) {
+		if (typeof $icon_name === "undefined") {
+			return;
+		}
+		chrome.browserAction.setIcon({
+			path: {
+				"19": "icons/icon-" + $icon_name + "-19.png",
+				"38": "icons/icon-" + $icon_name + "-38.png"
+			}
 		});
 	};
 
