@@ -116,7 +116,7 @@ var EnvatoCommentsChecker = (function () {
 					var comment_text = comment.highlightable[0];
 					comment_text = comment_text.substring(9);
 					comment_text = strip_html(comment_text);
-					comment_text = comment_text.substring(0, 30);
+					comment_text = comment_text.substring(0, 60);
 
 					new_item_json[comment.id] = {
 						comment_content: comment_text,

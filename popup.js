@@ -46,6 +46,9 @@ var PopupBuilder = (function () {
 				 */
 
 				var is_built = false;
+
+				var counter = 1;
+
 				items_ids.forEach(function (item_id, index) {
 
 					/**
@@ -59,25 +62,31 @@ var PopupBuilder = (function () {
 					var item_element = document.getElementById('item_template').cloneNode(true),
 						item_wrapper = item_element.querySelector('.comments'),
 						title = item_element.querySelector('.title'),
+						radio = item_element.querySelector('input[type=radio]'),
 						items_list = document.getElementById('items_list');
 
 					title.innerHTML = api_results[item_id].name;
 
 					item_element.setAttribute('id', 'item_id_' + item_id);
+					radio.setAttribute('id', 'radio-' + item_id);
+					title.setAttribute('for', 'radio-' + item_id);
 
 					is_built = build_item_html(api_results[item_id], item_wrapper);
 
 					if ( is_built ) {
+						if ( counter === 1 ) {
+							radio.checked = true;
+						}
+						counter++;
 						item_element.className = 'theme';
-						item_element.appendChild(title);
-						item_element.appendChild(item_wrapper);
-
 						items_list.appendChild(item_element);
 					}
 				});
 
 				if ( ! is_built ) {
 					updateIcon();
+					var status = document.getElementById('status');
+					status.textContent = 'You have read all the comments';
 				}
 			});
 		});
@@ -96,8 +105,8 @@ var PopupBuilder = (function () {
 
 		check_now_button.onclick = function (ev) {
 			ev.preventDefault();
-
 			chrome.extension.sendMessage( {type: 'check_now'} );
+			return false;
 		};
 	};
 

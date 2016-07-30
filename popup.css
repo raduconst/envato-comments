@@ -1,18 +1,191 @@
 body {
-    width: 700px;
-    margin-right: 10px;
+	width: 420px;
+	margin: 0;
+	background-color: #F4F4F4;
+	padding: 10px;
+	border:1px solid #ebebeb;
+}
+
+header{
+	display: block;
+	border-bottom: 2px solid #ebebeb;
+	margin-bottom: 10px;
+	background: #454545;
+}
+
+header > * {
+	margin: 16px 5px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.info, #status {
+	padding-left: 5px;
+	color: #6f9a37;
+}
+
+#check_now {
+	position: relative;
+	float: right;
+	outline: none;
+	font-size: 25px;
+	text-decoration: none;
 }
 
 .theme {
-    display: inline-block;
-    width: 44%;
-    vertical-align: top;
+	display: inline-block;
+	width: 100%;
+	vertical-align: top;
 }
 
-#items_list ul li a:visited {
-    color: red;
+body a {
+	text-decoration: none;
+	color: #444;
+}
+
+body a:hover {
+	color: #ccc;
+}
+
+.comment_link:visited {
+	color: red;
+	text-decoration: line-through;
+}
+
+.comment {
+	line-height: 15px;
+	text-transform: CAPITALIZE;
+}
+.mark_all_as_read {
+	position: absolute;
+	top: 7px;
+	right: 5px;
+}
+
+#check_now:hover {
+	opacity: 0.3;
 }
 
 .template {
-    display: none;
+	display: none;
+}
+
+.accordion [type=radio], .accordion [type=checkbox] {
+	display: none;
+}
+
+.accordion [type=radio], .accordion [type=checkbox] {
+	display: none;
+}
+
+.accordion label {
+	display: block;
+	font-size: 16px;
+	line-height: 16px;
+	background: #6f9b38;
+	border: 1px solid #cccccc;
+	color: #F4F4F4;
+	cursor: pointer;
+	text-transform: capitalize;
+	-webkit-transition: all .2s ease-out;
+	-moz-transition: all .2s ease-out;
+}
+
+.accordion label:hover, .accordion [type=radio]:checked ~ label, .accordion [type=checkbox]:checked ~ label {
+	background: #F4F4F4;
+	color: #333;
+}
+
+.accordion .content {
+	list-style: decimal-leading-zero;
+	padding:0;
+	overflow: hidden;
+	border: 1px solid #fff; /* Make the border match the background so it fades in nicely */
+	border-top: none;
+	-webkit-transition: height .7s ease-out;
+	-moz-transition: height .7s ease-out;
+
+	background-color: #fff;
+	background-image:
+			linear-gradient(90deg, transparent 39px, #6f9b38 39px, #6f9b38 41px, transparent 41px),
+			linear-gradient(#eee .1em, transparent .1em);
+	background-size: 100% 1.3em;
+}
+
+.accordion p {
+	color: #333;
+	margin: 0 0 10px;
+}
+
+.accordion h3 {
+	color: #cccccc;
+	padding: 0;
+	margin: 10px 0;
+}
+
+/* Vertical */
+.vertical .theme {
+	overflow: hidden;
+	margin: 0 0 1px;
+	position: relative;
+}
+
+.vertical label {
+	padding: 10px 40px 10px 10px;
+	word-break: keep-all;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.vertical [type=radio]:checked ~ label, .vertical [type=checkbox]:checked ~ label {
+	border-bottom: 0;
+}
+
+.vertical label:hover {
+	border: 1px solid #cccccc; /* We don't want the border to disappear on hover */
+}
+
+.vertical .content {
+	height: 0;
+	border-top: 0;
+	margin: 0;
+}
+
+.vertical [type=radio]:checked ~ label ~ .content, .vertical [type=checkbox]:checked ~ label ~ .content {
+	height: auto;
+	border: 1px solid #cccccc;
+	border-top: none;
+	padding: 17px 10px 17px 65px;
+	margin: 0;
+}
+
+.icon {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;  /* Preferred icon size */
+	display: inline-block;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+
+	/* Support for all WebKit browsers. */
+	-webkit-font-smoothing: antialiased;
+	/* Support for Safari and Chrome. */
+	text-rendering: optimizeLegibility;
+
+	/* Support for Firefox. */
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Support for IE. */
+	font-feature-settings: 'liga';
+	text-decoration: none;
+}
+
+.action {
+	color: #6f9a37;
 }
