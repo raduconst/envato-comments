@@ -149,6 +149,12 @@ var PopupBuilder = (function () {
 	// update the browser icon as the extension state is
 	var updateIcon = function ($icon_name) {
 		if (typeof $icon_name === "undefined") {
+			chrome.browserAction.setIcon({
+				path: {
+					"19": "icons/icon-19.png",
+					"38": "icons/icon-38.png"
+				}
+			});
 			return;
 		}
 		chrome.browserAction.setIcon({
