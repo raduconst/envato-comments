@@ -30,7 +30,7 @@ function restore_options() {
 	chrome.storage.sync.get({
 		envato_token: '',
 		items_ids: '',
-		recheck_time: 60
+		recheck_time: 900
 	}, function(items) {
 		document.getElementById('envato_token').value = items.envato_token;
 		document.getElementById('items_ids').value = items.items_ids;

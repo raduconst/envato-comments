@@ -1,24 +1,68 @@
 <!DOCTYPE html>
 <html>
-<head><title>My Test Extension Options</title></head>
+<head><title>Options | Envato Comments Notifications</title></head>
+<style>
+	fieldset {
+		width: 100%;
+	}
+
+	fieldset > * {
+		width: 45%;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	fieldset label {
+		vertical-align: middle;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	fieldset .description {
+		/*width: 50%;*/
+	}
+
+</style>
 <body>
-<label for="envato_token">
-    Envato Token:
-    <input type="text" id="envato_token" >
-</label>
+<div id="wrapper">
+	<h2>Envato Comments Notifications Extension Settings</h2>
+	<fieldset>
+		<label for="envato_token">
+			Envato Token:
+		</label>
+		<input type="text" id="envato_token">
+		<div class="description">
+			<p>The Envato Token is required since the extension needs to authanticate into the Envato API and get data for you</p>
+			<p>You can get a token from <a href="https://build.envato.com/create-token/">here</a> (you will have to create an account) </p>
+		</div>
+	</fieldset>
 
-<label for="items_ids">
-    Items ids:
-    <input type="text" id="items_ids" >
-</label>
+	<fieldset>
+		<label for="items_ids">
+			Items ids:
+		</label>
+		<textarea id="items_ids" cols="45" rows="5"></textarea>
+		<div class="description">
+			<p>Add items ids separated by comma</p>
+		</div>
+	</fieldset>
 
-<label for="recheck_time">
-    Check time in seconds:
-    <input type="text" id="recheck_time" >
-</label>
 
-<div id="status"></div>
-<button id="save">Save</button>
+	<fieldset>
+		<label for="recheck_time">
+			Check time in seconds:
+		</label>
+		<input type="text" id="recheck_time" placeholder="900">
+		<div class="description">
+			<p>This is the time interval when the extension should check again for new comments.</p>
+			<p>The default is 900(15 minutes)</p>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<div id="status"></div>
+		<button id="save">Save</button>
+	</fieldset>
+</div>
 
 <script src="options.js"></script>
 </body>

@@ -39,15 +39,15 @@ var PopupBuilder = (function () {
 				 */
 				var items_ids = items.items_ids.split(',');
 
+				var is_built = false,
+					counter = 1,
+					status = false;
 				/**
 				 * For each envato item create a <div> element composed from:
 				 * - title
 				 * - list of comments
 				 */
 
-				var is_built = false;
-
-				var counter = 1;
 
 				items_ids.forEach(function (item_id, index) {
 
@@ -80,13 +80,13 @@ var PopupBuilder = (function () {
 						counter++;
 						item_element.className = 'theme';
 						items_list.appendChild(item_element);
+						status = true;
 					}
 				});
 
-				if ( ! is_built ) {
+				if ( ! status ) {
 					updateIcon();
-					var status = document.getElementById('status');
-					status.textContent = 'You have read all the comments';
+					document.getElementById('status').textContent = 'You have read all the comments';
 				}
 			});
 		});
@@ -108,7 +108,20 @@ var PopupBuilder = (function () {
 			chrome.extension.sendMessage( {type: 'check_now'} );
 			return false;
 		};
+
+		document.addEventListener('click', function (e) {
+			e.preventDefault();
+			if (hasClass(e.target, 'mark_all_as_read')) {
+				var item_id = e.target.parentElement.getAttribute('id');
+				chrome.extension.sendMessage( {type: 'mark_as_read', item_id: item_id } );
+			}
+			return false;
+		}, false);
 	};
+
+	function hasClass(elem, className) {
+		return elem.className.split(' ').indexOf(className) > -1;
+	}
 
 	// this function adds html for a single envato item
 	var build_item_html = function (item, item_wrapper) {
