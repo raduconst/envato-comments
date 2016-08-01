@@ -1,16 +1,20 @@
 body {
-	width: 420px;
+	width: 480px;
 	margin: 0;
-	background-color: #F4F4F4;
+	background-color: #f1f1f1;
 	padding: 10px;
-	border:1px solid #ebebeb;
+	border: 1px solid #ebebeb;
+	color: #444;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	font-size: 13px;
+	line-height: 1.4em;
 }
 
-header{
+header {
 	display: block;
 	border-bottom: 2px solid #ebebeb;
 	margin-bottom: 10px;
-	background: #454545;
+	background: #82B541;
 }
 
 header > * {
@@ -21,7 +25,8 @@ header > * {
 
 .info, #status {
 	padding-left: 5px;
-	color: #6f9a37;
+	color: #fff;
+	font-weight: 400;
 }
 
 #check_now {
@@ -56,10 +61,12 @@ body a:hover {
 	line-height: 15px;
 	text-transform: CAPITALIZE;
 }
-.mark_all_as_read {
+
+.mark_all_as_read.action {
 	position: absolute;
 	top: 7px;
 	right: 5px;
+	color: #82B541;
 }
 
 #check_now:hover {
@@ -82,7 +89,7 @@ body a:hover {
 	display: block;
 	font-size: 16px;
 	line-height: 16px;
-	background: #6f9b38;
+	background: #82B541;
 	border: 1px solid #cccccc;
 	color: #F4F4F4;
 	cursor: pointer;
@@ -98,7 +105,7 @@ body a:hover {
 
 .accordion .content {
 	list-style: decimal-leading-zero;
-	padding:0;
+	padding: 0;
 	overflow: hidden;
 	border: 1px solid #fff; /* Make the border match the background so it fades in nicely */
 	border-top: none;
@@ -106,9 +113,8 @@ body a:hover {
 	-moz-transition: height .7s ease-out;
 
 	background-color: #fff;
-	background-image:
-			linear-gradient(90deg, transparent 39px, #6f9b38 39px, #6f9b38 41px, transparent 41px),
-			linear-gradient(#eee .1em, transparent .1em);
+	background-image: linear-gradient(90deg, transparent 31px, #6f9b38 31px, #6f9b38 33px, transparent 33px),
+	linear-gradient(#eee .1em, transparent .1em);
 	background-size: 100% 1.3em;
 }
 
@@ -164,7 +170,7 @@ body a:hover {
 	font-family: 'Material Icons';
 	font-weight: normal;
 	font-style: normal;
-	font-size: 24px;  /* Preferred icon size */
+	font-size: 24px; /* Preferred icon size */
 	display: inline-block;
 	line-height: 1;
 	text-transform: none;
@@ -187,5 +193,11 @@ body a:hover {
 }
 
 .action {
-	color: #6f9a37;
+	color: #fff;
+}
+
+.action:hover {
+	opacity: 0.4;
+	-webkit-transition: all .2s ease-out;
+	-moz-transition: all .2s ease-out;
 }

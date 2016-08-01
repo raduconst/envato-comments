@@ -110,7 +110,7 @@ var PopupBuilder = (function () {
 		};
 
 		document.addEventListener('click', function (e) {
-			e.preventDefault();
+			// e.preventDefault();
 			if (hasClass(e.target, 'mark_all_as_read')) {
 				var item_id = e.target.parentElement.getAttribute('id');
 				chrome.extension.sendMessage( {type: 'mark_as_read', item_id: item_id } );
