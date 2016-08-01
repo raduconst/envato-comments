@@ -13,7 +13,6 @@ body {
 header {
 	display: block;
 	border-bottom: 2px solid #ebebeb;
-	margin-bottom: 10px;
 	background: #82B541;
 }
 
@@ -58,7 +57,7 @@ body a:hover {
 }
 
 .comment {
-	line-height: 15px;
+	line-height: 20px;
 	text-transform: CAPITALIZE;
 }
 
@@ -115,7 +114,7 @@ body a:hover {
 	background-color: #fff;
 	background-image: linear-gradient(90deg, transparent 31px, #6f9b38 31px, #6f9b38 33px, transparent 33px),
 	linear-gradient(#eee .1em, transparent .1em);
-	background-size: 100% 1.3em;
+	background-size: 100% 20px;
 }
 
 .accordion p {
@@ -132,7 +131,7 @@ body a:hover {
 /* Vertical */
 .vertical .theme {
 	overflow: hidden;
-	margin: 0 0 1px;
+	margin: 10px 0 0;
 	position: relative;
 }
 
@@ -162,7 +161,7 @@ body a:hover {
 	height: auto;
 	border: 1px solid #cccccc;
 	border-top: none;
-	padding: 17px 10px 17px 65px;
+	padding: 20px 10px 20px 65px;
 	margin: 0;
 }
 
